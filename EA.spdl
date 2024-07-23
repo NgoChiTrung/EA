@@ -1,13 +1,5 @@
-# Andrew Secure RPC
-#
-# Modelled after the description in the SPORE library
-# http://www.lsv.ens-cachan.fr/spore/andrew.html
-#
-# Note:
-# The shared key between I and R is modelled as k(I,R) currently
-# there is no way to express that this key is equal to k(R,I)
-# So it is possile that certain attacks that use this property are not found
-#
+Chungbuk National University 
+Ngo Chi Trung
 
 const PUF: Function;
 #macro R = PUF(C);
@@ -18,15 +10,20 @@ protocol EA(Server,Device)
 {
     role Device
     {		fresh request: Nonce;
-		secret R;
-		fresh C: Nonce;
-		macro R = PUF(C);
-		macro m1 = { C }R;
+		secret R;
+
+		fresh C: Nonce;
+
+		macro R = PUF(C);
+
+		macro m1 = { C }R;
+
 
 
         send_1(Device,Server,request );
         recv_2(Server,Device,C);
-        send_3(Device,Server,m1 );
+        send_3(Device,Server,m1 );
+
 
         claim_Device1(Device,Secret,R);
         claim_Device2(Device,Nisynch);
@@ -35,7 +32,8 @@ protocol EA(Server,Device)
     role Server
     {	   secret R;
         fresh C: Nonce;
-	fresh request: Nonce;
+	fresh request: Nonce;
+
 
         recv_1(Device,Server,request );
         send_2(Server,Device,C );
